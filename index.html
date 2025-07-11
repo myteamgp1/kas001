@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Search Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        input { padding: 10px; margin: 10px; width: 200px; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; }
+        .result { margin-top: 20px; padding: 20px; border: 1px solid #ddd; background: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Product Search Dashboard</h1>
+        
+        <div>
+            <input type="text" id="productCode" placeholder="ใส่รหัสสินค้า เช่น PRD001">
+            <button onclick="search()">ค้นหา</button>
+        </div>
+        
+        <div id="result" class="result" style="display:none;">
+            <h2 id="productName"></h2>
+            <p id="productDesc"></p>
+            <p><strong>ราคา:</strong> <span id="productPrice"></span></p>
+            <p><strong>หมวดหมู่:</strong> <span id="productCategory"></span></p>
+        </div>
+        
+        <div id="error" style="display:none; color:red; margin-top:20px;">
+            <h3>❌ ไม่พบสินค้า</h3>
+            <p>กรุณาลองรหัสสินค้า: PRD001, PRD002, PRD003</p>
+        </div>
+    </div>
+
+    <script>
+        const products = {
+            'PRD001': {
+                name: 'สมาร์ทโฟน Samsung Galaxy S24',
+                description: 'สมาร์ทโฟนรุ่นใหม่ล่าสุด พร้อมกล้อง AI',
+                price: '฿32,900',
+                category: 'อิเล็กทรอนิกส์'
+            },
+            'PRD002': {
+                name: 'หูฟังไร้สาย AirPods Pro 2',
+                description: 'หูฟังไร้สายพร้อม Active Noise Cancellation',
+                price: '฿8,900',
+                category: 'อุปกรณ์เสียง'
+            },
+            'PRD003': {
+                name: 'โน้ตบุ๊ก MacBook Air M2',
+                description: 'โน้ตบุ๊กที่บางเบาและทรงพลัง พร้อมชิป M2',
+                price: '฿42,900',
+                category: 'คอมพิวเตอร์'
+            }
+        };
+
+        function search() {
+            const code = document.getElementById('productCode').value.toUpperCase();
+            const product = products[code];
+            
+            if (product) {
+                document.getElementById('productName').textContent = product.name;
+                document.getElementById('productDesc').textContent = product.description;
+                document.getElementById('productPrice').textContent = product.price;
+                document.getElementById('productCategory').textContent = product.category;
+                
+                document.getElementById('result').style.display = 'block';
+                document.getElementById('error').style.display = 'none';
+            } else {
+                document.getElementById('result').style.display = 'none';
+                document.getElementById('error').style.display = 'block';
+            }
+        }
+
+        // Enter key support
+        document.getElementById('productCode').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') search();
+        });
+    </script>
+</body>
+</html>
